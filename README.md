@@ -19,3 +19,5 @@
     16.执行python manage.py makemigrations
     17.执行python manage.py migrate
     18.执行python manage.py runserver测试网站
+
+2.Djang的ORM操作最重要的是找到数据项（记录），把它放到一个变量p中，然后可以针对p做各种操作，最后调用p.save()就可以完成修改并反映到数据库中。
