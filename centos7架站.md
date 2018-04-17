@@ -95,6 +95,7 @@
 >python manage.py startapp mainsite
 
 12.修改settings.py并测试页面
+     
      ALLOWED_HOSTS=['*']
      LANGUAGE_CODE='zh-Hans'
      TIME_ZONE='Asia/Shanghai'
@@ -123,7 +124,7 @@
 4.重启防火墙
 >firewall-cmd --reload
 
-以上便是开启了80端口，外网可以访问http://ip了，对于我们的django项目来说，自然是还要开启8000端口。为了测试方便，我在这里还开启了8001端口。对于有些情况下，8000端口被占用了，可以杀死占用8000端口的进程，重新使用端口
+以上便是开启了80端口，外网可以访问 http://ip 了，对于我们的django项目来说，自然是还要开启8000端口。为了测试方便，我在这里还开启了8001端口。对于有些情况下，8000端口被占用了，可以杀死占用8000端口的进程，重新使用端口
 >fuser -k 8000/tcp
 
 ### 四.配置uwsgi+nginx
@@ -134,6 +135,7 @@
 >ln -s /usr/local/python3/bin/uwsgi /usr/bin/uwsgi3
 
 3.建一个demo.py , 输入这段代码
+    
     def application(env, start_response):
         start_response(‘200 OK’, [(‘Content-Type’,’text/html’)]) 
     return [b”Hello World”]
@@ -155,6 +157,7 @@
 >make && make install
 
 7.nginx一般默认安装好的路径为/usr/local/nginx，在/user/local/nginx/conf/中打开nginx.conf，加入以下内容
+
     server {
     listen 80; #暴露给外部访问的端口
     server_name localhost;
@@ -178,6 +181,7 @@
 8.wq保存后进入/usr/local/nginx/sbin/目录，执行./nginx -t命令先检查配置文件是否有错，没有错就执行./nginx。如果这个时候报错80端口被占用了，可以先执行 fuser -k 80/tcp，再执行./nginx
 
 9.接下来继续配置uwsgi。新建一个hello_uwsgi.ini文件
+
     [uwsgi]
     socket = 127.0.0.1:8000
     chdir= /root/mblog
@@ -196,6 +200,7 @@
 
 ### 五.上线样式处理
 1.django管理后台界面样式错乱，此时需要在settings.py中指定STATIC_ROOT路径，例如 
+
      STATIC_ROOT='/root/mblog/static'
 
 这里的路径和nginx.conf中对location /static的配置是对应的。然后执行
@@ -207,6 +212,7 @@
 >pkill uwsgi
 
 发现主页即可恢复正常...为啥捏？？？
+
 ### 六.安装配置git
 1.查看Git版本信息,如果版本较旧则更新
 >git --version
