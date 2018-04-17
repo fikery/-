@@ -2,7 +2,7 @@
 
 费了好大劲，查过了几十篇博客问答，才将这个流程完整的打通，当然因为之前完全没有接触过这方面，所以也学到了很多非常基础的上线建站的新知识。
 
-###一.安装python3.5
+### 一.安装python3.5
 
 由于centos7本身安装了Python2.7，而且不少系统命令都会用到，所以采用另外安装python3的方式。
 
@@ -35,7 +35,7 @@
 
 以上便安装好了python3.5
 
-###二.安装Django2.0+virtualenv+virtualenvwrapper
+### 二.安装Django2.0+virtualenv+virtualenvwrapper
 
 1.由于python3.5内置了pip3，所以可以直接使用pip3
 >pip3 install django
@@ -103,7 +103,7 @@
 
 以上便是配置好了虚拟环境下的django项目。由于创建虚拟环境采用的是python3，所以在这个venv创建的django项目下，可以直接使用python，pip等命令，指向的是python3的命令。同时在centos7上不能直接runserver，必须是0.0.0.0:8000，外网才能访问成功ip:8000。当然前提是8000端口开放了，不过腾讯云服务器centos7系统默认是没有开放端口的，所以接下来要进行防火墙和端口的开放。
 
-###三.配置防火墙和端口
+### 三.配置防火墙和端口
 
 1.centos7采用的是firewall而不是iptables
 >systemctl status firewalld #查看防火墙状态
@@ -126,7 +126,7 @@
 以上便是开启了80端口，外网可以访问http://ip了，对于我们的django项目来说，自然是还要开启8000端口。为了测试方便，我在这里还开启了8001端口。对于有些情况下，8000端口被占用了，可以杀死占用8000端口的进程，重新使用端口
 >fuser -k 8000/tcp
 
-###四.配置uwsgi+nginx
+### 四.配置uwsgi+nginx
 1.使用pip3直接安装
 >pip3 install uwsgi
 
@@ -194,7 +194,7 @@
 
 以上配置即可在centos7系统的云服务器上部署django站点，通过外网访问ip即可对应django的8000端口站点。值得注意的是，此时上线django的管理界面是样式错乱的，所以还需要进一步处理。
 
-###五.上线样式处理
+### 五.上线样式处理
 1.django管理后台界面样式错乱，此时需要在settings.py中指定STATIC_ROOT路径，例如 
      STATIC_ROOT='/root/mblog/static'
 
@@ -207,7 +207,7 @@
 >pkill uwsgi
 
 发现主页即可恢复正常...为啥捏？？？
-###六.安装配置git
+### 六.安装配置git
 1.查看Git版本信息,如果版本较旧则更新
 >git --version
 
