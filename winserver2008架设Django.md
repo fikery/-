@@ -1,4 +1,4 @@
-总结一下在winserver2008下基于IIS8和wfastcgi架设django2.0站点。
+总结一下在`winserver2008`下基于`IIS8`和`wfastcgi`架设`django2.0`站点。
 参考[主要配置]( https://blog.csdn.net/gzlaiyonghao/article/details/70243639) 和[css消失修复](https://blog.csdn.net/qq_18075613/article/details/56970016) 
 
 ## 一.安装python3.6
@@ -38,9 +38,9 @@
 
 ## 四.复制admin文件的样式文件
 
-1.在app目录下新增static文件夹，然后在`settings.py`中设置`STATIC_ROOT`路径为上述文件夹路径，然后执行`python manager.py collectstatic`，可将静态文件复制到static文件夹下。
+1.在app目录下新增`static`文件夹，然后在`settings.py`中设置`STATIC_ROOT`路径为上述文件夹路径，然后执行`python manager.py collectstatic`，可将静态文件复制到`static`文件夹下。
 
-2.在上述static文件夹下新建`web.config`文件，模板如下
+2.在上述`static`文件夹下新建`web.config`文件，模板如下
 
     <?xml version="1.0" encoding="UTF-8"?>  
     <configuration>  
@@ -53,6 +53,6 @@
       </system.webServer>  
     </configuration>  
     
-3.打开IIS管理器，点击网站，右键选择添加虚拟路径，命名可以是static，路径为上述static文件夹路径
+3.打开`IIS管理器`，点击网站，右键选择添加虚拟路径，命名可以是`static`，路径为上述`static`文件夹路径。
 
-4.重新运行IIS即可样式正常
+4.重新运行IIS即可样式正常，外网可以正常访问。
