@@ -8,7 +8,7 @@
 ## 二.安装wfastcgi
     
     pip install wfastcgi #安装wfastcgi模块  
-    wfastcgi-enable #启用并输出所在地址
+    wfastcgi-enable #启用并输出所在地址
     
 ## 三.配置web.config
 
