@@ -36,9 +36,9 @@
 
 `scriptProcessor`的值，要改为前文说过的运行`wfastcgi`输出的那个值。`PYTHONPATH`的`value`要改为`manager.py`的那个目录，也就是你项目的根目录。`DJANGO_SETTINGS_MODULE`的`value`中的`<Django App>`要改为你的项目名。
 
-## 四.复制admin文件的样式文件
+## 四.解决上线后css样式问题
 
-1.在app目录下新增`static`文件夹，然后在`settings.py`中设置`STATIC_ROOT`路径为上述文件夹路径，然后执行`python manager.py collectstatic`，可将静态文件复制到`static`文件夹下。
+1.在app目录下新增`static`文件夹，然后在`settings.py`中设置`STATIC_ROOT`路径为上述文件夹路径，然后执行`python manager.py collectstatic`，可将静态文件复制到`static`文件夹下。这样解决了admin的样式错乱。另外为解决一般网页样式问题，还要将project目录下的`static`文件夹内的内容，包括css、image和js文件拷贝到新的目录下，这样才能保证网页的样式正常。事实上，如果按照新版的django官方教程，`static`文件夹应当建立在app目录下，包括`templates`文件夹也是如此。旧版的网上教程，普遍是将这些静态文件和模板文件放在了project目录下，因此如果根据新版(个人看的是django2.0)官方教程，可以避免不少的麻烦操作。
 
 2.在上述`static`文件夹下新建`web.config`文件，模板如下
 
@@ -57,11 +57,9 @@
 
 4.重新运行IIS即可样式正常，外网可以正常访问。
 
-## 五.css样式错乱补充及url有中文字符问题
+## 五.解决url有中文字符导致编码解码异常问题
 
-1.在APP目录下新增`static`文件夹后，还要将project目录下的`static`文件夹内的内容，包括css、image和js文件拷贝到新的目录下，这样才能保证网页的样式正常。事实上，如果按照新版的django官方教程，`static`文件夹应当建立在app目录下，包括`templates`文件夹也是如此。旧版的网上教程，普遍是将这些静态文件和模板文件放在了project目录下，因此如果根据新版(个人看的是django2.0)官方教程，可以避免不少的麻烦操作。
-
-2.在将网站部署到IIS上时发现，url中有中文的时候，`urls.py`路由会将中文按照`gb2312`编码，但是进入`views.py`后解码却是`utf-8`，因此这导致了url链接有中文字符引发后续操作异常。但奇怪的是，在本地测试的时候，并不会出现这个问题，测试发现本地均是以`utf-8`编码和解码的。这个问题理论上可以有多种解决方式：传递中文字符之前进行指定编码，后面再指定解码，或者是在view.py中进行编码的单独处理。这里采用后者，仅仅两行代码
+1.在将网站部署到IIS上时发现，url中有中文的时候，`urls.py`路由会将中文按照`gb2312`编码，但是进入`views.py`后解码却是`utf-8`，因此这导致了url链接有中文字符引发后续操作异常。但奇怪的是，在本地测试的时候，并不会出现这个问题，测试发现本地均是以`utf-8`编码和解码的。这个问题理论上可以有多种解决方式：传递中文字符之前进行指定编码，后面再指定解码，或者是在view.py中进行编码的单独处理。这里采用后者，仅仅两行代码
 
     dataQ=urllib.parse.quote(data).replace('%25','%')
     dataUq=urllib.parse.unquote(dataQ,encoding='gb2312')
