@@ -64,6 +64,6 @@
 2.在将网站部署到IIS上时发现，url中有中文的时候，`urls.py`路由会将中文按照`gb2312`编码，但是进入`views.py`后解码却是`utf-8`，因此这导致了url链接有中文字符引发后续操作异常。但奇怪的是，在本地测试的时候，并不会出现这个问题，测试发现本地均是以`utf-8`编码和解码的。这个问题理论上可以有多种解决方式：传递中文字符之前进行指定编码，后面再指定解码，或者是在view.py中进行编码的单独处理。这里采用后者，仅仅两行代码：
 
     data=urllib.parse.quote(data).replace('%25','%')
-    data=urllib.parse.unquote(data,encoding='gb2312')
+    data=urllib.parse.unquote(data,encoding='gb2312')
 
 这里以例子进行说明
