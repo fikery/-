@@ -154,7 +154,7 @@
 
 >tar -zxvf nginx-1.13.7.tar.gz
 
->./configure #如果需要配置ssl登录需要加上--with-http_ssl_module
+>./configure #如果配置ssl证书需要加上--with-http_ssl_module
 
 >make && make install
 
