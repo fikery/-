@@ -118,8 +118,10 @@
 2.启动防火墙，查看开放端口
 >firewall-cmd --list-ports
 
-3.开启80端口
+3.开启/关闭80端口
 >firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+>firewall-cmd --zone=public --remove-port=80/tcp --permanent
 
 4.重启防火墙
 >firewall-cmd --reload
@@ -152,11 +154,11 @@
 
 >tar -zxvf nginx-1.13.7.tar.gz
 
->./configure
+>./configure #如果需要配置ssl登录需要加上--with-http_ssl_module
 
 >make && make install
 
-7.nginx一般默认安装好的路径为/usr/local/nginx，在/user/local/nginx/conf/中打开nginx.conf，加入以下内容
+7.nginx一般默认安装好的路径为/usr/local/nginx，在/usr/local/nginx/conf/中打开nginx.conf，加入以下内容
 
     server {
     listen 80; #暴露给外部访问的端口
