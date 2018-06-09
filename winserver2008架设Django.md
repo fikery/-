@@ -65,3 +65,7 @@
     dataUq=urllib.parse.unquote(dataQ,encoding='gb2312')
 
 使用quote重新编码，然后再使用unquote重新解码得到正确中文，这里以例子进行说明：例如url中包括`武汉`中文字符，其url编码的`utf-8`编码是a `%e6%ad%a6%e6%b1%89`，`gb2312`编码是b `%ce%e4%ba%ba`,理论上当`url.py`中捕获到中文时，应该采用a方式编码，但是实际上采用了b方式编码，然后在`views.py`中解码时采用了a方式解码，结果解码出异常码c `%ce人`(如果采用网上的url编码网站进行测试会发现，对b进行a方式解码，会得到`�人`，但是`views.py`中进行Httpresponse()实际输出得到的是c。另外对`%ce`进行a方式的url解码得到`�`,但是反过来编码却不是，疑惑ing...)。因此现在针对c进行还原处理，`dataQ`得到的是b,然后dataUq得到`武汉`字符。
+
+2.如果是js中传递的网址链接有中文，例如ajax加载需要传递中文参数，可以通过`data=encodeURIComponent(data)`来进行`url编码`，然后再在`view.py`中进行解码`data = urllib.parse.unquote(data)`，如此便可正常传递中文网址参数。
+
+3.模板文件中，js引用变量需要加引号`'{{data}}'`。如果是想在js文件中引用变量，建议是在模板头部加一段过渡js代码，将模板变量赋值给js中的变量，再引用js文件。
