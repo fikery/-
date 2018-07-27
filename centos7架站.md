@@ -139,8 +139,8 @@
 3.建一个demo.py , 输入这段代码
     
     def application(env, start_response):
-        start_response(‘200 OK’, [(‘Content-Type’,’text/html’)]) 
-    return [b”Hello World”]
+        start_response('200 OK', [('Content-Type','text/html')]) 
+        return [b"Hello World"]
 
 4.执行命令
 >uwsgi --http :8000 --wsgi-file demo.py #虚拟环境下直接uwsgi即可
